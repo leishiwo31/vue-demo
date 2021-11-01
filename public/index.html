@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1,maximum-scale=1,maximum-scale=1, user-scalable=no" name="viewport">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <meta name="renderer" content="webkit">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Deepcoin</title>
+    <script>
+        ;(function(){
+            function setREM(){
+                var docEl   = document.documentElement;
+                var clientW = docEl.clientWidth;
+                if (!clientW){
+                    docEl.style.fontSize = '50px';
+                    setTimeout(setREM,50)
+                    return
+                }
+                docEl.style.fontSize = clientW >= 750 ?'100px' :100 * (clientW / 750)+ 'px';
+            }
+            setREM();
+        })();
+        // Android使用
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge);
+                return;
+            }
+            document.addEventListener('WebViewJavascriptBridgeReady',function() {
+                callback(WebViewJavascriptBridge);
+            },false);
+
+            //iOS使用
+            if (window.WebViewJavascriptBridge) {
+                return callback(WebViewJavascriptBridge);
+            }
+            if (window.WVJBCallbacks) {
+                return window.WVJBCallbacks.push(callback);
+            }
+            window.WVJBCallbacks = [callback];
+            const WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'https://__bridge_loaded__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() {
+                document.documentElement.removeChild(WVJBIframe);
+            }, 0);
+        }
+
+        // 在改function 中添加原生调起js方法
+        setupWebViewJavascriptBridge(function(bridge) {
+            bridge.registerHandler('setBBJToken', function(data, responseCallback) {
+                console.log('JS Echo called with:', data);
+                if (typeof data === 'string') {
+                    const jsonData = JSON.parse(data);
+                    window.token = jsonData.token;
+                }else{
+                    window.token = data.token;
+                }
+                if (responseCallback) {
+                    responseCallback('77777777');
+                }
+            });
+
+            bridge.callHandler('getToken', 'fff', function responseCallback(responseData) {
+                if (typeof responseData === 'string') {
+                    const jsonData = JSON.parse(responseData);
+                    window.token = jsonData.token;
+                }else{
+                    window.token = responseData.token;
+                }
+                // alert(window.token)
+            });
+            window.bridge = bridge;
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.12/lib/index.css"/>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+</html>
