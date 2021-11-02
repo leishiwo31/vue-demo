@@ -25,7 +25,7 @@ module.exports = {
 	},
 	devtool:'none',
 	output:{
-		path:util.resolve('../dist'),
+		// path:util.resolve('dist'),
     	publicPath: '/',
 		chunkFilename: 'static/js/[name].[chunkhash:10].chunk.min.js',
     	filename: 'static/js/[name].[chunkhash:10].min.js'
@@ -36,7 +36,7 @@ module.exports = {
 	plugins:[
 		new DllReferencePlugin({
       		// manifest 就是之前打包出来的 json 文件
-      		manifest: path.join(__dirname, "../config/dll", "main.manifest.json"),
+      		manifest: path.join(__dirname, "../dll", "main.manifest.json"),
     	}),
 		new HappyPack({
 	    	id: 'happyBabel',
