@@ -6,7 +6,7 @@ const rules = [
 		test: /\.js$/,
 		include: util.resolve('../src'),
 		exclude: /node_modules/,
-		use: [process.env.NODE_ENV==='production'?'happypack/loader?id=happyBabel':'babel-loader']
+		use: [process.env.NODE_ENV==='production'?'happypack/loader?id=happyBabel':util.happyBabel()]
 	},
 	{
 		test:/\.vue$/,

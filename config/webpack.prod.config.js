@@ -4,7 +4,7 @@ const VueLoaderPlugin 	    = require('vue-loader/lib/plugin');
 const AddAssetHtmlCdnPlugin = require("add-asset-html-cdn-webpack-plugin");
 const {CleanWebpackPlugin}  = require('clean-webpack-plugin');
 const CopyWebpackPlugin     = require("copy-webpack-plugin");
-const rules 				= require('./webpack.base.config.js');
+const rules 				= require('./module@rules.js');
 const MiniCssExtractPlugin  = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BundleAnalyzerPlugin  = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -41,7 +41,7 @@ module.exports = {
 		new HappyPack({
 	    	id: 'happyBabel',
 	    	threadPool: happyThreadPool,
-	    	loaders: ['babel-loader?cacheDirectory=true'],
+	    	loaders: [util.happyBabel()],
 	    	verbose:true
 	    }),
 		new BundleAnalyzerPlugin({

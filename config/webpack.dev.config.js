@@ -2,7 +2,7 @@ const webpack 				= require('webpack');
 const HtmlWebpackPlugin 	= require('html-webpack-plugin');
 const VueLoaderPlugin 		= require('vue-loader/lib/plugin');
 const CopyWebpackPlugin     = require("copy-webpack-plugin");
-const rules 				= require('./webpack.base.config.js');
+const rules 				= require('./module@rules.js');
 const util 				    = require('./util');
 
 module.exports = {
